@@ -1,0 +1,71 @@
+﻿@model Mission07_Sampson.Models.Movie
+
+@{
+    ViewData["Title"] = "Add a Movie";
+}
+
+<h1>Add a Movie</h1>
+
+<form asp-action="AddMovie" method="post">
+    <div class="mb-3">
+        <label for="Title">Title:</label>
+        <input asp-for="Title" class="form-control" required>
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="CategoryId">Category:</label>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
+            <option value="">-- Select a Category --</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="Year">Year:</label>
+        <input asp-for="Year" type="number" class="form-control" required min="1888">
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="Director">Director:</label>
+        <input asp-for="Director" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="Rating">Rating:</label>
+        <select asp-for="Rating" class="form-control">
+            <option value="G">G</option>
+            <option value="PG">PG</option>
+            <option value="PG-13">PG-13</option>
+            <option value="R">R</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Edited:</label>
+        <input asp-for="Edited" type="checkbox">
+    </div>
+
+    <div class="mb-3">
+        <label>Copied to Plex:</label>
+        <input asp-for="CopiedToPlex" type="checkbox">
+    </div>
+
+    <div class="mb-3">
+        <label for="LentTo">Lent To:</label>
+        <input asp-for="LentTo" class="form-control" required>
+        <span asp-validation-for="LentTo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="Notes">Notes (max 25 characters):</label>
+        <input asp-for="Notes" class="form-control" maxlength="25">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,42 @@
+﻿@model List<Mission07_Sampson.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movie List";
+}
+
+<h1>Movie List</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Year</th>
+            <th>Director</th>
+            <th>Rating</th>
+            <th>Edited</th>
+            <th>Lent To</th>
+            <th>Notes</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+                <td>@(movie.Category != null ? movie.Category.CategoryName : "Uncategorized")</td>
+                <td>@movie.Year</td>
+                <td>@(string.IsNullOrEmpty(movie.Director) ? "N/A" : movie.Director)</td>
+                <td>@(string.IsNullOrEmpty(movie.Rating) ? "N/A" : movie.Rating)</td>
+                <td>@(movie.Edited ? "Yes" : "No")</td>
+                <td>@(string.IsNullOrEmpty(movie.LentTo) ? "N/A" : movie.LentTo)</td>
+                <td>@(string.IsNullOrEmpty(movie.Notes) ? "N/A" : movie.Notes)</td>
+                <td>
+                    <a asp-controller="Movies" asp-action="EditMovie" asp-route-id="@movie.MovieId" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-controller="Movies" asp-action="DeleteMovie" asp-route-id="@movie.MovieId" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
