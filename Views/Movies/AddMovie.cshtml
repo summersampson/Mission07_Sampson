@@ -15,11 +15,17 @@
 
     <div class="mb-3">
         <label for="CategoryId">Category:</label>
-        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
+        <select asp-for="CategoryId" class="form-control">
             <option value="">-- Select a Category --</option>
+            <option value="1">Miscellaneous</option>
+            <option value="2">Drama</option>
+            <option value="3">Television</option>
+            <option value="4">Horror/Suspense</option>
+            <option value="5">Comedy</option>
         </select>
         <span asp-validation-for="CategoryId" class="text-danger"></span>
     </div>
+
 
     <div class="mb-3">
         <label for="Year">Year:</label>

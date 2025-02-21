@@ -66,14 +66,20 @@ namespace Mission07_Sampson.Controllers
                 return NotFound(); // Returns a 404 if the movie isn't found
             }
 
-            // Make sure ViewBag is populated with categories for the dropdown
-            ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "CategoryName", movie.CategoryId);
+            // Fetch categories and ensure the dropdown is populated
+            var categories = _context.Categories.ToList();
+            if (!categories.Any())
+            {
+                categories = new List<Category>(); // Avoid null errors
+            }
+
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName", movie.CategoryId);
 
             return View(movie); // Return the view with the model
         }
 
 
-        // Method to handle Edit Movie form submission
+
         [HttpPost]
         public IActionResult EditMovie(Movie movie)
         {
@@ -85,10 +91,17 @@ namespace Mission07_Sampson.Controllers
             }
 
             // If validation fails, reload categories for dropdown
-            ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "CategoryName", movie.CategoryId);
+            var categories = _context.Categories.ToList();
+            if (!categories.Any())
+            {
+                categories = new List<Category>(); // Prevents null reference issues
+            }
+
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName", movie.CategoryId);
 
             return View(movie);
         }
+
 
         // Method to delete a movie
         public IActionResult DeleteMovie(int id)
